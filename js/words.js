@@ -1,0 +1,3 @@
+// words.js
+function wMode(m){const lm=document.getElementById('wlm'),fm=document.getElementById('wfm'),bl=document.getElementById('tl'),bf=document.getElementById('tf'),qb=document.getElementById('wqb');if(m==='list'){lm.style.display='flex';fm.style.display='none';bl.classList.add('active');bf.classList.remove('active');if(qb)qb.style.display='';}else{lm.style.display='none';fm.style.display='flex';bl.classList.remove('active');bf.classList.add('active');if(qb)qb.style.display='none';}}
+function speakWord(w){if(window.speechSynthesis)window.speechSynthesis.speak(new SpeechSynthesisUtterance(w));}

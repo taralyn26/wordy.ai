@@ -1,0 +1,2 @@
+// lists.js
+function sL(d){const t=document.getElementById('ltr');if(!t)return;const c=parseInt(t.dataset.o||'0'),m=(t.children.length-3)*240,n=Math.max(0,Math.min(c+d*240,m));t.dataset.o=n;t.style.transform=`translateX(-${n}px)`;}
