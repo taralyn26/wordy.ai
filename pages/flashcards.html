@@ -2,8 +2,10 @@
 <div id="flashcards" class="page">
   <div style="display:flex;flex-direction:column;align-items:center;width:100%;max-width:900px;flex:1;gap:20px;margin:0 auto;">
 
-    <!-- Progress -->
-    <div class="fc-progress" id="fc-progress">1 of 6</div>
+    <div class="fc-top-row">
+      <div class="fc-progress" id="fc-progress">1 of 6</div>
+      <button type="button" class="qc-exit-btn" onclick="openFcExit()">Exit</button>
+    </div>
 
     <!-- Card scene -->
     <div class="fc-scene" id="fc-scene" onclick="fcTap(event)">
@@ -51,6 +53,17 @@
     </div>
   </div>
 
+  <div class="fc-restart-modal" id="fc-exit-modal" role="dialog" aria-modal="true" aria-labelledby="fc-exit-title">
+    <div class="fc-restart-popup" style="position:relative">
+      <button type="button" class="fc-restart-close" onclick="closeFcExit()" aria-label="Close">&times;</button>
+      <div class="fc-restart-title" id="fc-exit-title">End flashcards?</div>
+      <div class="fc-restart-sub" id="fc-exit-msg">Are you sure you want to end? Your progress in this session will be lost.</div>
+      <div class="fc-restart-btns">
+        <button type="button" class="fc-restart-btn" id="fc-exit-confirm" onclick="confirmFcExit()">Yes, end session</button>
+        <button type="button" class="fc-restart-btn outline" onclick="closeFcExit()">Keep going</button>
+      </div>
+    </div>
+  </div>
   <!-- Restart modal -->
   <div class="fc-restart-modal" id="fc-restart-modal">
     <div class="fc-restart-popup" style="position:relative">

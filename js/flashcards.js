@@ -11,6 +11,8 @@ function fcInit(set){
   document.getElementById('fc-scene').style.display='';
   document.querySelectorAll('.fc-know-row')[0].style.display='flex';
   document.getElementById('fc-restart-modal').classList.remove('open');
+  const fem=document.getElementById('fc-exit-modal');
+  if(fem)fem.classList.remove('open');
 }
 
 function fcShowCard(){
@@ -63,6 +65,25 @@ function fcShowResults(){
   document.getElementById('fc-results-msg').textContent=msg;
   document.getElementById('fc-results').classList.add('vis');
 }
+
+function openFcExit(){
+  const onResults=document.getElementById('fc-results').classList.contains('vis');
+  const title=document.getElementById('fc-exit-title');
+  const msg=document.getElementById('fc-exit-msg');
+  const btn=document.getElementById('fc-exit-confirm');
+  if(onResults){
+    if(title)title.textContent='Leave flashcards?';
+    if(msg)msg.textContent='Go back to Words? You can open this set again anytime.';
+    if(btn)btn.textContent='Yes, go to Words';
+  }else{
+    if(title)title.textContent='End flashcards?';
+    if(msg)msg.textContent='Are you sure you want to end? Your progress in this session will be lost.';
+    if(btn)btn.textContent='Yes, end session';
+  }
+  document.getElementById('fc-exit-modal').classList.add('open');
+}
+function closeFcExit(){const m=document.getElementById('fc-exit-modal');if(m)m.classList.remove('open');}
+function confirmFcExit(){closeFcExit();go('words');}
 
 function fcRestart(onlyWrong){
   const set = onlyWrong && fcDontKnow.length>0

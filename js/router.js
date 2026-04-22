@@ -1,6 +1,6 @@
 // router.js
-const nids=['words','library','quiz','flashcards','profile'];
-function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');nids.forEach(n=>document.getElementById('nav-'+n).classList.remove('active'));if(nids.includes(id))document.getElementById('nav-'+id).classList.add('active');if(id==='home')sAnim();if(id==='reading')rAnim();if(id==='session')setTimeout(iSess,100);
+const nids=['words','library','quiz','profile'];
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');nids.forEach(n=>document.getElementById('nav-'+n).classList.remove('active'));if(nids.includes(id))document.getElementById('nav-'+id).classList.add('active');if(id==='flashcards'){const nw=document.getElementById('nav-words');if(nw)nw.classList.add('active');}if(id==='home')sAnim();if(id==='reading')rAnim();if(id==='session')setTimeout(iSess,100);
   if(id==='flashcards'){const set=[...FC_DATA];for(let i=set.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[set[i],set[j]]=[set[j],set[i]];}fcInit(set);}if(id!=='session'&&rec){try{rec.stop();}catch(e){} syn.cancel();}}
 function sAnim(){const l1=document.getElementById('sl1'),l2=document.getElementById('sl2'),b=document.getElementById('bwrap');l1.classList.remove('vis');l2.classList.remove('vis');b.classList.remove('vis');void l1.offsetWidth;setTimeout(()=>l1.classList.add('vis'),80);setTimeout(()=>l2.classList.add('vis'),400);setTimeout(()=>b.classList.add('vis'),900);}
 sAnim();
@@ -41,7 +41,7 @@ function openQ(){document.getElementById('qso').classList.add('open');}
 function closeQ(){document.getElementById('qso').classList.remove('open');}
 function cN(d){qNum=Math.max(1,Math.min(20,qNum+d));document.getElementById('qnd').textContent=qNum;}
 function sT(el){document.querySelectorAll('.qradio').forEach(r=>r.classList.remove('chk'));el.classList.add('chk');}
-function startQ(){closeQ();rQ();document.getElementById('qa').classList.add('vis');document.getElementById('qres').classList.remove('vis');document.getElementById('qrevpanel').style.display='none';go('quiz');}
+function startQ(){closeQ();closeQuizExit();rQ();document.getElementById('qa').classList.add('vis');document.getElementById('qres').classList.remove('vis');document.getElementById('qrevpanel').style.display='none';go('quiz');}
 function sc(el,ic,idx){
   const card=el.closest('.qqc');if(card.dataset.a)return;
   card.dataset.a='1';
@@ -124,6 +124,27 @@ function rQ(){
   document.getElementById('qres').classList.remove('vis');
   document.getElementById('qrevpanel').style.display='none';
 }
+function openQuizExit(){
+  const qa=document.getElementById('qa');
+  const qaVis=qa&&qa.classList.contains('vis');
+  const inProgress=qaVis&&!document.getElementById('qres').classList.contains('vis');
+  const title=document.getElementById('quiz-exit-title');
+  const msg=document.getElementById('quiz-exit-msg');
+  const btn=document.getElementById('quiz-exit-confirm');
+  if(inProgress){
+    if(title)title.textContent='End quiz?';
+    if(msg)msg.textContent='Are you sure you want to end the quiz? Your progress so far will be lost.';
+    if(btn)btn.textContent='Yes, end quiz';
+  }else{
+    if(title)title.textContent='Leave quiz?';
+    if(msg)msg.textContent='Are you sure you want to leave? This will clear your results and review from this session.';
+    if(btn)btn.textContent='Yes, leave';
+  }
+  const m=document.getElementById('quiz-exit-modal');
+  if(m)m.classList.add('open');
+}
+function closeQuizExit(){const m=document.getElementById('quiz-exit-modal');if(m)m.classList.remove('open');}
+function confirmQuizExit(){closeQuizExit();rQ();go('words');}
 function confetti(){const cv=document.getElementById('confettiCanvas'),ctx=cv.getContext('2d');cv.width=window.innerWidth;cv.height=window.innerHeight;const ps=Array.from({length:140},()=>({x:Math.random()*cv.width,y:Math.random()*-200,w:Math.random()*10+5,h:Math.random()*6+3,color:['#9bc78b','#d8e9d1','#ffd54f','#ef9a9a','#90caf9','#b39ddb'][Math.floor(Math.random()*6)],rot:Math.random()*360,vx:(Math.random()-.5)*4,vy:Math.random()*5+3,vr:(Math.random()-.5)*8}));let fr=0;(function draw(){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;});fr++;if(fr<200)requestAnimationFrame(draw);else ctx.clearRect(0,0,cv.width,cv.height);})();}
 
 function goFocus(idx){
@@ -146,6 +167,8 @@ function fcInit(set){
   document.getElementById('fc-scene').style.display='';
   document.querySelectorAll('.fc-know-row')[0].style.display='flex';
   document.getElementById('fc-restart-modal').classList.remove('open');
+  const fem=document.getElementById('fc-exit-modal');
+  if(fem)fem.classList.remove('open');
 }
 
 function fcShowCard(){
@@ -198,6 +221,25 @@ function fcShowResults(){
   document.getElementById('fc-results-msg').textContent=msg;
   document.getElementById('fc-results').classList.add('vis');
 }
+
+function openFcExit(){
+  const onResults=document.getElementById('fc-results').classList.contains('vis');
+  const title=document.getElementById('fc-exit-title');
+  const msg=document.getElementById('fc-exit-msg');
+  const btn=document.getElementById('fc-exit-confirm');
+  if(onResults){
+    if(title)title.textContent='Leave flashcards?';
+    if(msg)msg.textContent='Go back to Words? You can open this set again anytime.';
+    if(btn)btn.textContent='Yes, go to Words';
+  }else{
+    if(title)title.textContent='End flashcards?';
+    if(msg)msg.textContent='Are you sure you want to end? Your progress in this session will be lost.';
+    if(btn)btn.textContent='Yes, end session';
+  }
+  document.getElementById('fc-exit-modal').classList.add('open');
+}
+function closeFcExit(){const m=document.getElementById('fc-exit-modal');if(m)m.classList.remove('open');}
+function confirmFcExit(){closeFcExit();go('words');}
 
 function fcRestart(onlyWrong){
   const set = onlyWrong && fcDontKnow.length>0

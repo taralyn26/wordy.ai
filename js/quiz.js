@@ -6,7 +6,7 @@ function openQ(){document.getElementById('qso').classList.add('open');}
 function closeQ(){document.getElementById('qso').classList.remove('open');}
 function cN(d){qNum=Math.max(1,Math.min(20,qNum+d));document.getElementById('qnd').textContent=qNum;}
 function sT(el){document.querySelectorAll('.qradio').forEach(r=>r.classList.remove('chk'));el.classList.add('chk');}
-function startQ(){closeQ();rQ();document.getElementById('qa').classList.add('vis');document.getElementById('qres').classList.remove('vis');document.getElementById('qrevpanel').style.display='none';go('quiz');}
+function startQ(){closeQ();closeQuizExit();rQ();document.getElementById('qa').classList.add('vis');document.getElementById('qres').classList.remove('vis');document.getElementById('qrevpanel').style.display='none';go('quiz');}
 function sc(el,ic,idx){
   const card=el.closest('.qqc');if(card.dataset.a)return;
   card.dataset.a='1';
@@ -89,4 +89,25 @@ function rQ(){
   document.getElementById('qres').classList.remove('vis');
   document.getElementById('qrevpanel').style.display='none';
 }
+function openQuizExit(){
+  const qa=document.getElementById('qa');
+  const qaVis=qa&&qa.classList.contains('vis');
+  const inProgress=qaVis&&!document.getElementById('qres').classList.contains('vis');
+  const title=document.getElementById('quiz-exit-title');
+  const msg=document.getElementById('quiz-exit-msg');
+  const btn=document.getElementById('quiz-exit-confirm');
+  if(inProgress){
+    if(title)title.textContent='End quiz?';
+    if(msg)msg.textContent='Are you sure you want to end the quiz? Your progress so far will be lost.';
+    if(btn)btn.textContent='Yes, end quiz';
+  }else{
+    if(title)title.textContent='Leave quiz?';
+    if(msg)msg.textContent='Are you sure you want to leave? This will clear your results and review from this session.';
+    if(btn)btn.textContent='Yes, leave';
+  }
+  const m=document.getElementById('quiz-exit-modal');
+  if(m)m.classList.add('open');
+}
+function closeQuizExit(){const m=document.getElementById('quiz-exit-modal');if(m)m.classList.remove('open');}
+function confirmQuizExit(){closeQuizExit();rQ();go('words');}
 function confetti(){const cv=document.getElementById('confettiCanvas'),ctx=cv.getContext('2d');cv.width=window.innerWidth;cv.height=window.innerHeight;const ps=Array.from({length:140},()=>({x:Math.random()*cv.width,y:Math.random()*-200,w:Math.random()*10+5,h:Math.random()*6+3,color:['#9bc78b','#d8e9d1','#ffd54f','#ef9a9a','#90caf9','#b39ddb'][Math.floor(Math.random()*6)],rot:Math.random()*360,vx:(Math.random()-.5)*4,vy:Math.random()*5+3,vr:(Math.random()-.5)*8}));let fr=0;(function draw(){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;});fr++;if(fr<200)requestAnimationFrame(draw);else ctx.clearRect(0,0,cv.width,cv.height);})();}

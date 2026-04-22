@@ -1,8 +1,13 @@
 <!-- quiz.html -->
 <div id="quiz" class="page">
   <div class="qin">
-    <div id="qpt" class="qpt">Quiz</div>
-    <div class="qsub">Chapter 1 &mdash; Little Women</div>
+    <div class="qquiz-head">
+      <div class="qquiz-head-text">
+        <div id="qpt" class="qpt">Quiz</div>
+        <div class="qsub">Chapter 1 &mdash; Little Women</div>
+      </div>
+      <button type="button" class="qc-exit-btn" onclick="openQuizExit()">Exit</button>
+    </div>
     <div class="qa" id="qa">
       <div class="qprog"><span class="qprogl" id="qprogl">0 of 6 answered</span></div>
       <div class="qss" id="qss"><div class="qqc" id="qcard0"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">1 of 6</span></div><div class="qqc-term">despondent</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,0)">hopeful and cheerful</div><div class="qc" onclick="sc(this,false,0)">bright and shining</div><div class="qc" onclick="sc(this,false,0)">vivacious and energetic</div><div class="qc" onclick="sc(this,true,0)">in low spirits from loss of hope or courage</div></div></div><div class="qqc" id="qcard1"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">2 of 6</span></div><div class="qqc-term">effervescent</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,1)">lasting briefly</div><div class="qc" onclick="sc(this,true,1)">vivacious and enthusiastic</div><div class="qc" onclick="sc(this,false,1)">melancholy and sad</div><div class="qc" onclick="sc(this,false,1)">pleasant to hear</div></div></div><div class="qqc" id="qcard2"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">3 of 6</span></div><div class="qqc-term">mellifluous</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,2)">in low spirits</div><div class="qc" onclick="sc(this,true,2)">sweet or musical; pleasant to hear</div><div class="qc" onclick="sc(this,false,2)">bright or shining</div><div class="qc" onclick="sc(this,false,2)">harsh and grating</div></div></div><div class="qqc" id="qcard3"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">4 of 6</span></div><div class="qqc-term">ephemeral</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,3)">vivacious</div><div class="qc" onclick="sc(this,false,3)">in low spirits</div><div class="qc" onclick="sc(this,false,3)">eternal and lasting</div><div class="qc" onclick="sc(this,true,3)">lasting for a very short time</div></div></div><div class="qqc" id="qcard4"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">5 of 6</span></div><div class="qqc-term">luminous</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,4)">dull and grey</div><div class="qc" onclick="sc(this,false,4)">lasting briefly</div><div class="qc" onclick="sc(this,false,4)">pleasant to hear</div><div class="qc" onclick="sc(this,true,4)">bright or shining, especially in the dark</div></div></div><div class="qqc" id="qcard5"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">6 of 6</span></div><div class="qqc-term">petrichor</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,5)">the sound of thunder</div><div class="qc" onclick="sc(this,false,5)">vivacious and enthusiastic</div><div class="qc" onclick="sc(this,true,5)">the pleasant smell of rain on dry earth</div><div class="qc" onclick="sc(this,false,5)">in low spirits</div></div></div></div>
@@ -55,6 +60,17 @@
       <div style="display:flex;gap:12px;margin-top:16px;justify-content:center;">
         <button class="qretake" onclick="prevRev()" style="padding:10px 28px;">&#8592; Prev</button>
         <button class="qretake" onclick="nextRev()" style="padding:10px 28px;">Next &#8594;</button>
+      </div>
+    </div>
+  </div>
+  <div class="fc-restart-modal" id="quiz-exit-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-exit-title">
+    <div class="fc-restart-popup" style="position:relative">
+      <button type="button" class="fc-restart-close" onclick="closeQuizExit()" aria-label="Close">&times;</button>
+      <div class="fc-restart-title" id="quiz-exit-title">End quiz?</div>
+      <div class="fc-restart-sub" id="quiz-exit-msg">Are you sure you want to end the quiz? Your progress will be lost.</div>
+      <div class="fc-restart-btns">
+        <button type="button" class="fc-restart-btn" id="quiz-exit-confirm" onclick="confirmQuizExit()">Yes, end quiz</button>
+        <button type="button" class="fc-restart-btn outline" onclick="closeQuizExit()">Keep going</button>
       </div>
     </div>
   </div>

@@ -138,6 +138,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:8px 40
 /* QUIZ */
 #quiz{flex-direction:column;align-items:stretch;background:var(--ow);overflow:hidden;}
 .qin{flex:1;display:flex;flex-direction:column;padding:32px 48px 40px;overflow:hidden;}
+.qquiz-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:4px;flex-shrink:0;}
+.qquiz-head-text{min-width:0;}
+.qc-exit-btn{flex-shrink:0;margin-top:6px;background:none;border:1.5px solid #ccc;border-radius:40px;padding:8px 18px;font-family:inherit;font-size:14px;font-weight:600;color:#555;cursor:pointer;}
+.qc-exit-btn:hover{border-color:var(--gg);background:var(--lg);color:var(--bk);}
 .qpt{font-size:42px;font-weight:800;color:var(--bk);margin-bottom:4px;}
 .qsub{font-size:14px;color:#aaa;margin-bottom:24px;}
 .qso{display:none;position:fixed;inset:0;background:rgba(80,80,80,.55);z-index:200;align-items:center;justify-content:center;}
@@ -294,7 +298,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:8px 40
 /* FLASHCARDS */
 #flashcards{flex-direction:column;align-items:center;justify-content:flex-start;background:var(--ow);overflow:hidden;padding:32px 48px 24px;}
 .fc-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:900px;gap:24px;}
-.fc-progress{font-size:13px;color:#aaa;letter-spacing:.5px;margin-bottom:4px;}
+.fc-top-row{display:flex;width:100%;justify-content:space-between;align-items:center;gap:16px;margin-bottom:4px;}
+.fc-progress{font-size:13px;color:#aaa;letter-spacing:.5px;}
 
 /* Card container with flip */
 .fc-scene{width:100%;max-width:860px;height:380px;perspective:1200px;cursor:pointer;}
@@ -405,7 +410,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:8px 40
 <button onclick="go('words')" id="nav-words"><svg viewBox="0 0 24 24"><text x="1" y="17" font-size="13" font-weight="bold" stroke="none" fill="currentColor" font-family="serif">Aa</text></svg>Words</button>
 <button onclick="go('library')" id="nav-library"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/></svg>Library</button>
 <button onclick="go('quiz')" id="nav-quiz" style="display:none"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 2-2.5 2.5-2.5 4"/><circle cx="12" cy="17.5" r="0.5" fill="currentColor"/></svg>Quiz</button>
-<button onclick="go('flashcards')" id="nav-flashcards"><svg viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="10" rx="2"/><rect x="7" y="6" width="10" height="10" rx="2"/><path d="M9 6 Q12 4 15 6"/></svg>Flashcards</button>
 <button onclick="go('profile')" id="nav-profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 19.5a5.5 5.5 0 0 1 11 0"/></svg>Profile</button>
 </div></nav>
 
@@ -462,8 +466,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:8px 40
 <div id="words" class="page"><div class="win"><div class="wtop"><button class="wqb" id="wqb" onclick="openQ()">Quiz Me!</button><button class="wqb" onclick="go('flashcards')" style="margin-left:8px">Flashcards</button><div class="wtog"><button id="tl" class="active" onclick="wMode('list')">List</button><button id="tf" onclick="wMode('focus')">Focus</button></div><div class="spill" style="max-width:280px"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:#5a8a50;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg><input placeholder="Search words"/></div><button class="fbtn"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg></button></div><div class="wlm" id="wlm"><div class="wli" onclick="goFocus(0)"><span style="font-family:Noto Serif,serif;font-size:20px;color:#111;min-width:160px">despondent</span><button class="fav" onclick="event.stopPropagation();this.classList.toggle('liked')"><svg viewBox="0 0 24 24" stroke="#5a8a50" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><div class="mbar"><div class="mfill" style="width:75%"></div></div></div><div class="wli" onclick="goFocus(1)"><span style="font-family:Noto Serif,serif;font-size:20px;color:#111;min-width:160px">effervescent</span><button class="fav" onclick="event.stopPropagation();this.classList.toggle('liked')"><svg viewBox="0 0 24 24" stroke="#5a8a50" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><div class="mbar"><div class="mfill" style="width:60%"></div></div></div><div class="wli" onclick="goFocus(2)"><span style="font-family:Noto Serif,serif;font-size:20px;color:#111;min-width:160px">mellifluous</span><button class="fav" onclick="event.stopPropagation();this.classList.toggle('liked')"><svg viewBox="0 0 24 24" stroke="#5a8a50" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><div class="mbar"><div class="mfill" style="width:45%"></div></div></div><div class="wli" onclick="goFocus(3)"><span style="font-family:Noto Serif,serif;font-size:20px;color:#111;min-width:160px">ephemeral</span><button class="fav" onclick="event.stopPropagation();this.classList.toggle('liked')"><svg viewBox="0 0 24 24" stroke="#5a8a50" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><div class="mbar"><div class="mfill" style="width:85%"></div></div></div><div class="wli" onclick="goFocus(4)"><span style="font-family:Noto Serif,serif;font-size:20px;color:#111;min-width:160px">luminous</span><button class="fav" onclick="event.stopPropagation();this.classList.toggle('liked')"><svg viewBox="0 0 24 24" stroke="#5a8a50" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><div class="mbar"><div class="mfill" style="width:30%"></div></div></div><div class="wli" onclick="goFocus(5)"><span style="font-family:Noto Serif,serif;font-size:20px;color:#111;min-width:160px">petrichor</span><button class="fav" onclick="event.stopPropagation();this.classList.toggle('liked')"><svg viewBox="0 0 24 24" stroke="#5a8a50" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button><div class="mbar"><div class="mfill" style="width:55%"></div></div></div></div><div class="wfm" id="wfm" style="display:none"><div class="fc"><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px"><button class="spkbtn" onclick="speakWord('despondent')"><svg viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><div style="font-family:Noto Serif,serif;font-size:42px;font-weight:700;color:#111">despondent</div></div><div style="font-family:Noto Serif,serif;font-size:17px;color:#666;margin-bottom:12px">(adj.)</div><div style="font-family:Noto Serif,serif;font-size:20px;color:#111;margin-bottom:24px;max-width:560px;line-height:1.5">in low spirits from loss of hope or courage.</div><div style="background:#d8e9d1;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;max-width:560px;width:100%;margin-bottom:28px"><button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #111;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 12 12" style="width:12px;height:12px"><polygon points="2 1 11 6 2 11" fill="currentColor"/></svg></button><div style="font-family:Noto Serif,serif;font-size:15px;font-style:italic;line-height:1.5;text-align:left">&#8220;Jo groaned and leaned both elbows on the table in a despondent attitude.&#8221;</div></div><div style="display:flex;gap:24px"><button class="fab" onclick="this.classList.toggle('liked')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div><div class="fc"><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px"><button class="spkbtn" onclick="speakWord('effervescent')"><svg viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><div style="font-family:Noto Serif,serif;font-size:42px;font-weight:700;color:#111">effervescent</div></div><div style="font-family:Noto Serif,serif;font-size:17px;color:#666;margin-bottom:12px">(adj.)</div><div style="font-family:Noto Serif,serif;font-size:20px;color:#111;margin-bottom:24px;max-width:560px;line-height:1.5">in low spirits from loss of hope or courage.</div><div style="background:#d8e9d1;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;max-width:560px;width:100%;margin-bottom:28px"><button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #111;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 12 12" style="width:12px;height:12px"><polygon points="2 1 11 6 2 11" fill="currentColor"/></svg></button><div style="font-family:Noto Serif,serif;font-size:15px;font-style:italic;line-height:1.5;text-align:left">&#8220;Jo groaned and leaned both elbows on the table in a despondent attitude.&#8221;</div></div><div style="display:flex;gap:24px"><button class="fab" onclick="this.classList.toggle('liked')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div><div class="fc"><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px"><button class="spkbtn" onclick="speakWord('mellifluous')"><svg viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><div style="font-family:Noto Serif,serif;font-size:42px;font-weight:700;color:#111">mellifluous</div></div><div style="font-family:Noto Serif,serif;font-size:17px;color:#666;margin-bottom:12px">(adj.)</div><div style="font-family:Noto Serif,serif;font-size:20px;color:#111;margin-bottom:24px;max-width:560px;line-height:1.5">in low spirits from loss of hope or courage.</div><div style="background:#d8e9d1;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;max-width:560px;width:100%;margin-bottom:28px"><button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #111;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 12 12" style="width:12px;height:12px"><polygon points="2 1 11 6 2 11" fill="currentColor"/></svg></button><div style="font-family:Noto Serif,serif;font-size:15px;font-style:italic;line-height:1.5;text-align:left">&#8220;Jo groaned and leaned both elbows on the table in a despondent attitude.&#8221;</div></div><div style="display:flex;gap:24px"><button class="fab" onclick="this.classList.toggle('liked')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div><div class="fc"><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px"><button class="spkbtn" onclick="speakWord('ephemeral')"><svg viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><div style="font-family:Noto Serif,serif;font-size:42px;font-weight:700;color:#111">ephemeral</div></div><div style="font-family:Noto Serif,serif;font-size:17px;color:#666;margin-bottom:12px">(adj.)</div><div style="font-family:Noto Serif,serif;font-size:20px;color:#111;margin-bottom:24px;max-width:560px;line-height:1.5">in low spirits from loss of hope or courage.</div><div style="background:#d8e9d1;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;max-width:560px;width:100%;margin-bottom:28px"><button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #111;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 12 12" style="width:12px;height:12px"><polygon points="2 1 11 6 2 11" fill="currentColor"/></svg></button><div style="font-family:Noto Serif,serif;font-size:15px;font-style:italic;line-height:1.5;text-align:left">&#8220;Jo groaned and leaned both elbows on the table in a despondent attitude.&#8221;</div></div><div style="display:flex;gap:24px"><button class="fab" onclick="this.classList.toggle('liked')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div><div class="fc"><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px"><button class="spkbtn" onclick="speakWord('luminous')"><svg viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><div style="font-family:Noto Serif,serif;font-size:42px;font-weight:700;color:#111">luminous</div></div><div style="font-family:Noto Serif,serif;font-size:17px;color:#666;margin-bottom:12px">(adj.)</div><div style="font-family:Noto Serif,serif;font-size:20px;color:#111;margin-bottom:24px;max-width:560px;line-height:1.5">in low spirits from loss of hope or courage.</div><div style="background:#d8e9d1;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;max-width:560px;width:100%;margin-bottom:28px"><button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #111;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 12 12" style="width:12px;height:12px"><polygon points="2 1 11 6 2 11" fill="currentColor"/></svg></button><div style="font-family:Noto Serif,serif;font-size:15px;font-style:italic;line-height:1.5;text-align:left">&#8220;Jo groaned and leaned both elbows on the table in a despondent attitude.&#8221;</div></div><div style="display:flex;gap:24px"><button class="fab" onclick="this.classList.toggle('liked')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div><div class="fc"><div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px"><button class="spkbtn" onclick="speakWord('petrichor')"><svg viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><div style="font-family:Noto Serif,serif;font-size:42px;font-weight:700;color:#111">petrichor</div></div><div style="font-family:Noto Serif,serif;font-size:17px;color:#666;margin-bottom:12px">(adj.)</div><div style="font-family:Noto Serif,serif;font-size:20px;color:#111;margin-bottom:24px;max-width:560px;line-height:1.5">in low spirits from loss of hope or courage.</div><div style="background:#d8e9d1;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;max-width:560px;width:100%;margin-bottom:28px"><button style="width:34px;height:34px;border-radius:50%;border:1.5px solid #111;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 12 12" style="width:12px;height:12px"><polygon points="2 1 11 6 2 11" fill="currentColor"/></svg></button><div style="font-family:Noto Serif,serif;font-size:15px;font-style:italic;line-height:1.5;text-align:left">&#8220;Jo groaned and leaned both elbows on the table in a despondent attitude.&#8221;</div></div><div style="display:flex;gap:24px"><button class="fab" onclick="this.classList.toggle('liked')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div></div></div></div>
 <div id="quiz" class="page">
   <div class="qin">
-    <div id="qpt" class="qpt">Quiz</div>
-    <div class="qsub">Chapter 1 &mdash; Little Women</div>
+    <div class="qquiz-head">
+      <div class="qquiz-head-text">
+        <div id="qpt" class="qpt">Quiz</div>
+        <div class="qsub">Chapter 1 &mdash; Little Women</div>
+      </div>
+      <button type="button" class="qc-exit-btn" onclick="openQuizExit()">Exit</button>
+    </div>
     <div class="qa" id="qa">
       <div class="qprog"><span class="qprogl" id="qprogl">0 of 6 answered</span></div>
       <div class="qss" id="qss"><div class="qqc" id="qcard0"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">1 of 6</span></div><div class="qqc-term">despondent</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,0)">hopeful and cheerful</div><div class="qc" onclick="sc(this,false,0)">bright and shining</div><div class="qc" onclick="sc(this,false,0)">vivacious and energetic</div><div class="qc" onclick="sc(this,true,0)">in low spirits from loss of hope or courage</div></div></div><div class="qqc" id="qcard1"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">2 of 6</span></div><div class="qqc-term">effervescent</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,1)">lasting briefly</div><div class="qc" onclick="sc(this,true,1)">vivacious and enthusiastic</div><div class="qc" onclick="sc(this,false,1)">melancholy and sad</div><div class="qc" onclick="sc(this,false,1)">pleasant to hear</div></div></div><div class="qqc" id="qcard2"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">3 of 6</span></div><div class="qqc-term">mellifluous</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,2)">in low spirits</div><div class="qc" onclick="sc(this,true,2)">sweet or musical; pleasant to hear</div><div class="qc" onclick="sc(this,false,2)">bright or shining</div><div class="qc" onclick="sc(this,false,2)">harsh and grating</div></div></div><div class="qqc" id="qcard3"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">4 of 6</span></div><div class="qqc-term">ephemeral</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,3)">vivacious</div><div class="qc" onclick="sc(this,false,3)">in low spirits</div><div class="qc" onclick="sc(this,false,3)">eternal and lasting</div><div class="qc" onclick="sc(this,true,3)">lasting for a very short time</div></div></div><div class="qqc" id="qcard4"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">5 of 6</span></div><div class="qqc-term">luminous</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,4)">dull and grey</div><div class="qc" onclick="sc(this,false,4)">lasting briefly</div><div class="qc" onclick="sc(this,false,4)">pleasant to hear</div><div class="qc" onclick="sc(this,true,4)">bright or shining, especially in the dark</div></div></div><div class="qqc" id="qcard5"><div class="qqc-top"><span class="qqc-lbl">Term</span><span class="qqc-num">6 of 6</span></div><div class="qqc-term">petrichor</div><div class="qqc-choose">Choose an answer</div><div class="qcg"><div class="qc" onclick="sc(this,false,5)">the sound of thunder</div><div class="qc" onclick="sc(this,false,5)">vivacious and enthusiastic</div><div class="qc" onclick="sc(this,true,5)">the pleasant smell of rain on dry earth</div><div class="qc" onclick="sc(this,false,5)">in low spirits</div></div></div></div>
@@ -519,13 +528,26 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:8px 40
       </div>
     </div>
   </div>
+  <div class="fc-restart-modal" id="quiz-exit-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-exit-title">
+    <div class="fc-restart-popup" style="position:relative">
+      <button type="button" class="fc-restart-close" onclick="closeQuizExit()" aria-label="Close">&times;</button>
+      <div class="fc-restart-title" id="quiz-exit-title">End quiz?</div>
+      <div class="fc-restart-sub" id="quiz-exit-msg">Are you sure you want to end the quiz? Your progress will be lost.</div>
+      <div class="fc-restart-btns">
+        <button type="button" class="fc-restart-btn" id="quiz-exit-confirm" onclick="confirmQuizExit()">Yes, end quiz</button>
+        <button type="button" class="fc-restart-btn outline" onclick="closeQuizExit()">Keep going</button>
+      </div>
+    </div>
+  </div>
 
 </div>
 <div id="flashcards" class="page">
   <div style="display:flex;flex-direction:column;align-items:center;width:100%;max-width:900px;flex:1;gap:20px;margin:0 auto;">
 
-    <!-- Progress -->
-    <div class="fc-progress" id="fc-progress">1 of 6</div>
+    <div class="fc-top-row">
+      <div class="fc-progress" id="fc-progress">1 of 6</div>
+      <button type="button" class="qc-exit-btn" onclick="openFcExit()">Exit</button>
+    </div>
 
     <!-- Card scene -->
     <div class="fc-scene" id="fc-scene" onclick="fcTap(event)">
@@ -573,6 +595,17 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:8px 40
     </div>
   </div>
 
+  <div class="fc-restart-modal" id="fc-exit-modal" role="dialog" aria-modal="true" aria-labelledby="fc-exit-title">
+    <div class="fc-restart-popup" style="position:relative">
+      <button type="button" class="fc-restart-close" onclick="closeFcExit()" aria-label="Close">&times;</button>
+      <div class="fc-restart-title" id="fc-exit-title">End flashcards?</div>
+      <div class="fc-restart-sub" id="fc-exit-msg">Are you sure you want to end? Your progress in this session will be lost.</div>
+      <div class="fc-restart-btns">
+        <button type="button" class="fc-restart-btn" id="fc-exit-confirm" onclick="confirmFcExit()">Yes, end session</button>
+        <button type="button" class="fc-restart-btn outline" onclick="closeFcExit()">Keep going</button>
+      </div>
+    </div>
+  </div>
   <!-- Restart modal -->
   <div class="fc-restart-modal" id="fc-restart-modal">
     <div class="fc-restart-popup" style="position:relative">
@@ -590,8 +623,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:8px 40
 
 
 <script>
-const nids=['words','library','quiz','flashcards','profile'];
-function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');nids.forEach(n=>document.getElementById('nav-'+n).classList.remove('active'));const ns=document.getElementById('nav-session');if(ns)ns.classList.toggle('active',id==='session');if(nids.includes(id))document.getElementById('nav-'+id).classList.add('active');if(id==='home')sAnim();if(id==='reading')rAnim();if(id==='session')setTimeout(iSess,100);
+const nids=['words','library','quiz','profile'];
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');nids.forEach(n=>document.getElementById('nav-'+n).classList.remove('active'));const ns=document.getElementById('nav-session');if(ns)ns.classList.toggle('active',id==='session');if(nids.includes(id))document.getElementById('nav-'+id).classList.add('active');if(id==='flashcards'){const nw=document.getElementById('nav-words');if(nw)nw.classList.add('active');}if(id==='home')sAnim();if(id==='reading')rAnim();if(id==='session')setTimeout(iSess,100);
   if(id==='flashcards'){const set=[...FC_DATA];for(let i=set.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[set[i],set[j]]=[set[j],set[i]];}fcInit(set);}if(id!=='session'&&rec){try{rec.stop();}catch(e){} syn.cancel();}}
 function sAnim(){const l1=document.getElementById('sl1'),l2=document.getElementById('sl2'),b=document.getElementById('bwrap');l1.classList.remove('vis');l2.classList.remove('vis');b.classList.remove('vis');void l1.offsetWidth;setTimeout(()=>l1.classList.add('vis'),80);setTimeout(()=>l2.classList.add('vis'),400);setTimeout(()=>b.classList.add('vis'),900);}
 sAnim();
@@ -632,7 +665,7 @@ function openQ(){document.getElementById('qso').classList.add('open');}
 function closeQ(){document.getElementById('qso').classList.remove('open');}
 function cN(d){qNum=Math.max(1,Math.min(20,qNum+d));document.getElementById('qnd').textContent=qNum;}
 function sT(el){document.querySelectorAll('.qradio').forEach(r=>r.classList.remove('chk'));el.classList.add('chk');}
-function startQ(){closeQ();rQ();document.getElementById('qa').classList.add('vis');document.getElementById('qres').classList.remove('vis');document.getElementById('qrevpanel').style.display='none';go('quiz');}
+function startQ(){closeQ();closeQuizExit();rQ();document.getElementById('qa').classList.add('vis');document.getElementById('qres').classList.remove('vis');document.getElementById('qrevpanel').style.display='none';go('quiz');}
 function sc(el,ic,idx){
   const card=el.closest('.qqc');if(card.dataset.a)return;
   card.dataset.a='1';
@@ -715,6 +748,27 @@ function rQ(){
   document.getElementById('qres').classList.remove('vis');
   document.getElementById('qrevpanel').style.display='none';
 }
+function openQuizExit(){
+  const qa=document.getElementById('qa');
+  const qaVis=qa&&qa.classList.contains('vis');
+  const inProgress=qaVis&&!document.getElementById('qres').classList.contains('vis');
+  const title=document.getElementById('quiz-exit-title');
+  const msg=document.getElementById('quiz-exit-msg');
+  const btn=document.getElementById('quiz-exit-confirm');
+  if(inProgress){
+    if(title)title.textContent='End quiz?';
+    if(msg)msg.textContent='Are you sure you want to end the quiz? Your progress so far will be lost.';
+    if(btn)btn.textContent='Yes, end quiz';
+  }else{
+    if(title)title.textContent='Leave quiz?';
+    if(msg)msg.textContent='Are you sure you want to leave? This will clear your results and review from this session.';
+    if(btn)btn.textContent='Yes, leave';
+  }
+  const m=document.getElementById('quiz-exit-modal');
+  if(m)m.classList.add('open');
+}
+function closeQuizExit(){const m=document.getElementById('quiz-exit-modal');if(m)m.classList.remove('open');}
+function confirmQuizExit(){closeQuizExit();rQ();go('words');}
 function confetti(){const cv=document.getElementById('confettiCanvas'),ctx=cv.getContext('2d');cv.width=window.innerWidth;cv.height=window.innerHeight;const ps=Array.from({length:140},()=>({x:Math.random()*cv.width,y:Math.random()*-200,w:Math.random()*10+5,h:Math.random()*6+3,color:['#9bc78b','#d8e9d1','#ffd54f','#ef9a9a','#90caf9','#b39ddb'][Math.floor(Math.random()*6)],rot:Math.random()*360,vx:(Math.random()-.5)*4,vy:Math.random()*5+3,vr:(Math.random()-.5)*8}));let fr=0;(function draw(){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;});fr++;if(fr<200)requestAnimationFrame(draw);else ctx.clearRect(0,0,cv.width,cv.height);})();}
 
 function goFocus(idx){
@@ -737,6 +791,8 @@ function fcInit(set){
   document.getElementById('fc-scene').style.display='';
   document.querySelectorAll('.fc-know-row')[0].style.display='flex';
   document.getElementById('fc-restart-modal').classList.remove('open');
+  const fem=document.getElementById('fc-exit-modal');
+  if(fem)fem.classList.remove('open');
 }
 
 function fcShowCard(){
@@ -789,6 +845,25 @@ function fcShowResults(){
   document.getElementById('fc-results-msg').textContent=msg;
   document.getElementById('fc-results').classList.add('vis');
 }
+
+function openFcExit(){
+  const onResults=document.getElementById('fc-results').classList.contains('vis');
+  const title=document.getElementById('fc-exit-title');
+  const msg=document.getElementById('fc-exit-msg');
+  const btn=document.getElementById('fc-exit-confirm');
+  if(onResults){
+    if(title)title.textContent='Leave flashcards?';
+    if(msg)msg.textContent='Go back to Words? You can open this set again anytime.';
+    if(btn)btn.textContent='Yes, go to Words';
+  }else{
+    if(title)title.textContent='End flashcards?';
+    if(msg)msg.textContent='Are you sure you want to end? Your progress in this session will be lost.';
+    if(btn)btn.textContent='Yes, end session';
+  }
+  document.getElementById('fc-exit-modal').classList.add('open');
+}
+function closeFcExit(){const m=document.getElementById('fc-exit-modal');if(m)m.classList.remove('open');}
+function confirmFcExit(){closeFcExit();go('words');}
 
 function fcRestart(onlyWrong){
   const set = onlyWrong && fcDontKnow.length>0
