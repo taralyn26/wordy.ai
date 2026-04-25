@@ -93,3 +93,6 @@ function fcRestart(onlyWrong){
   for(let i=set.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[set[i],set[j]]=[set[j],set[i]];}
   fcInit(set);
 }
+
+
+// hi
