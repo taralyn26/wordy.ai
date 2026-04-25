@@ -4,6 +4,9 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   server: {
     open: '/wordy-prototype.html',
+    proxy: {
+      '/api': 'http://localhost:8787',
+    },
   },
   build: {
     rollupOptions: {
